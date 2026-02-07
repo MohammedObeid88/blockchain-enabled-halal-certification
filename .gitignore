@@ -10,6 +10,7 @@ test-network/organizations/**/crypto
 test-network/organizations/**/wallet
 test-network/organizations/**/tlsca
 test-network/organizations/**/ca
+halal-certification-app/backend/wallets/
 
 # Fabric runtime artifacts
 *.block
