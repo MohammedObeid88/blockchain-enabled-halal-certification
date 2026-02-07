@@ -1,0 +1,24 @@
+{
+  "name": "halal-certification",
+  "version": "1.0.0",
+  "description": "Smart contract for halal certification processing on Hyperledger Fabric",
+  "main": "halalCertification.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "mocha --recursive",
+    "package": "tar -cvzf organicSupplyChain.tar.gz *",
+    "start": "fabric-chaincode-node start"
+  },
+  "dependencies": {
+    "fabric-contract-api": "^2.5.8",
+    "fabric-shim": "^2.5.8",
+    "json-stringify-deterministic": "^1.0.1",
+    "sort-keys-recursive": "^1.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.0",
+    "eslint": "^7.32.0",
+    "mocha": "^9.0.0"
+  },
+  "license": "Apache-2.0"
+}
