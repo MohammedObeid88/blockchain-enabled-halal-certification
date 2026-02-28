@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const pdfParse = require('pdf-parse');
+const crypto = require('crypto');
 
 const upload = multer({ dest: 'uploads/' });
 
@@ -249,7 +250,12 @@ app.post('/registerIngredientsList', async (req, res) => {
                 .status(400)
                 .json({ error: 'Missing required parameters' });
         }
-
+        
+        const hashedIngredientsCID = crypto
+            .createHash('sha256')
+            .update(ingredientsCID)
+            .digest('hex');
+        
         const ccpPath = path.resolve(
             __dirname,
             'connection',
@@ -273,7 +279,7 @@ app.post('/registerIngredientsList', async (req, res) => {
         const result = await contract.submitTransaction(
             'registerIngredientsList',
             productID,
-            ingredientsCID
+            hashedIngredientsCID
         );
 
         res.status(200).json({
@@ -372,6 +378,11 @@ app.post('/approveHalalCertification', async (req, res) => {
                 .json({ error: 'Missing required parameters' });
         }
 
+        const hashedCertificateCID = crypto
+            .createHash('sha256')
+            .update(certificateCID)
+            .digest('hex');
+
         const ccpPath = path.resolve(
             __dirname,
             'connection',
@@ -395,7 +406,7 @@ app.post('/approveHalalCertification', async (req, res) => {
         const result = await contract.submitTransaction(
             'approveHalalCertification',
             productID,
-            certificateCID
+            hashedCertificateCID
         );
 
         res.status(200).json({
@@ -512,6 +523,11 @@ app.post('/approveAfterAppeal', async (req, res) => {
                 .json({ error: 'Missing required parameters' });
         }
 
+        const hashedCertificateCID = crypto
+            .createHash('sha256')
+            .update(certificateCID)
+            .digest('hex');
+
         const ccpPath = path.resolve(
             __dirname,
             'connection',
@@ -535,7 +551,7 @@ app.post('/approveAfterAppeal', async (req, res) => {
         const result = await contract.submitTransaction(
             'approveAfterAppeal',
             productID,
-            certificateCID
+            hashedCertificateCID
         );
 
         res.status(200).json({
